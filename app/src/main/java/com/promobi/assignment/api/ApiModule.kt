@@ -11,7 +11,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
+
+
 
 /**
  * Created by Vishwajit on 29/07/18.
@@ -21,7 +22,6 @@ import javax.inject.Singleton
 class ApiModule {
 
     @Provides
-    @Singleton
     fun providesApiService(): ApiService {
 
         val API_URL = "https://api.nytimes.com/"
