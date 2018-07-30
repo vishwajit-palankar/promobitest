@@ -5,7 +5,7 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-public interface ApiService {
+interface ApiService {
     @GET("svc/books/v3/lists/overview.json")
-    abstract fun getNewsList(@Query("api-key") apiKey: String?): Observable<NewsResponseSchema>
+    fun getNewsList(@Query("api-key") apiKey: String?): Observable<NewsResponseSchema>
 }
