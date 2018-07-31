@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Assignment</string>
+    <string name="read_review"><u>Read Review</u></string>
+    <string name="read_first_chapter">Read First Chapter</string>
+    <string name="where_to_buy">Where to buy?</string>
 </resources>

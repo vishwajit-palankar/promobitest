@@ -1,6 +1,7 @@
-package com.promobi.assignment.api
+package com.promobi.assignment.di
 
 import com.google.gson.GsonBuilder
+import com.promobi.assignment.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
@@ -11,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-
+import javax.inject.Singleton
 
 
 /**
@@ -19,12 +20,11 @@ import java.util.concurrent.TimeUnit
  */
 
 @Module
-class ApiModule {
+class ApiModule(private val baseUrl: String) {
 
     @Provides
-    fun providesApiService(): ApiService {
-
-        val API_URL = "https://api.nytimes.com/"
+    @Singleton
+    fun providesOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder.hostnameVerifier { _, _ -> true }
 
@@ -45,17 +45,30 @@ class ApiModule {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         builder.interceptors().add(interceptor)
+        return builder.build()
+    }
 
-        val rxAdapter = RxJava2CallAdapterFactory
-                .createWithScheduler(Schedulers.io())
+    @Provides
+    @Singleton
+    fun providesGsonFactory(): GsonConverterFactory = GsonConverterFactory.create(GsonBuilder().create())
 
-        val retrofit = Retrofit.Builder()
-                .baseUrl(API_URL)
-                .client(builder.build())
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+    @Provides
+    @Singleton
+    fun providesRxJava2CallAdapterFactory(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory
+            .createWithScheduler(Schedulers.io())
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory, rxAdapter: RxJava2CallAdapterFactory): Retrofit {
+        return Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(okHttpClient)
+                .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(rxAdapter)
                 .build()
-
-        return retrofit.create(ApiService::class.java)
     }
+
+    @Provides
+    fun providesApiService(retrofit: Retrofit): ApiService =retrofit.create(ApiService::class.java)
+
 }

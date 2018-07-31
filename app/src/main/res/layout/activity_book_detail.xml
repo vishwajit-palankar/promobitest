@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="book"
+            type="com.promobi.assignment.models.Book" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            tools:context=".ui.BookDetailActivity">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="130dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{book.bookImage}"
+                tools:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@{book.title}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/iv_image"
+                tools:text="Harry Potter" />
+
+            <TextView
+                android:id="@+id/tv_contributor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{book.contributor}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                tools:text="J.K. Rowling" />
+
+            <TextView
+                android:id="@+id/tv_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Published by ` +book.publisher}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_contributor"
+                tools:text="O'Reilly" />
+
+            <TextView
+                android:id="@+id/tv_current_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Current Rank: ` +book.rank}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_publisher"
+                tools:text="Current Rank: 1" />
+
+            <TextView
+                android:id="@+id/tv_previous_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Previous Rank: ` +book.rankLastWeek}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_current_rank"
+                tools:text="Previous Rank: 3" />
+
+            <TextView
+                android:id="@+id/tv_read_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/read_review"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:visibility="@{book.bookReviewLink==null||book.bookReviewLink.isEmpty()?View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_previous_rank" />
+
+            <TextView
+                android:id="@+id/tv_read_first_chapter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/read_first_chapter"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:visibility="@{book.firstChapterLink==null||book.firstChapterLink.isEmpty()?View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_read_review" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@{book.description}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_image"
+                tools:text="Description" />
+
+            <TextView
+                android:id="@+id/tv_where_to_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/where_to_buy"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:visibility="@{book.buyLinks==null||book.buyLinks.isEmpty()?View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_buy_link"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:visibility="@{book.buyLinks==null||book.buyLinks.isEmpty()?View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_where_to_buy" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>

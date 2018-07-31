@@ -1,12 +1,11 @@
-package com.promobi.assignment.database
+package com.promobi.assignment.data.local
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
-import android.arch.persistence.room.TypeConverters
-import com.promobi.assignment.models.Results
+import com.promobi.assignment.models.NewsResponseSchema
+import io.reactivex.Maybe
 
 
 /**
@@ -18,11 +17,11 @@ interface DatabaseDao {
 
 
     @Insert(onConflict = REPLACE)
-    fun saveResults(states: Results)
+    fun saveResults(states: NewsResponseSchema)
 
-    @Query("SELECT * FROM Results")
-    fun getResults(): LiveData<List<Results>>
+    @Query("SELECT * FROM NewsResponseSchema")
+    fun getNewsResponseSchema(): Maybe<NewsResponseSchema>
 
-    @Query("DELETE FROM Results")
+    @Query("DELETE FROM NewsResponseSchema")
     fun deleteAll()
 }

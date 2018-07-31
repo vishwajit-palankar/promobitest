@@ -1,7 +1,10 @@
 package com.promobi.assignment.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Lists(
         @SerializedName("list_id") var listId: Int,
         @SerializedName("list_name") var listName: String,
@@ -12,4 +15,4 @@ data class Lists(
         @SerializedName("list_image_width") var listImageWidth: Int,
         @SerializedName("list_image_height") var listImageHeight: Int,
         @SerializedName("books") var books: List<Book>
-)
+) : Parcelable

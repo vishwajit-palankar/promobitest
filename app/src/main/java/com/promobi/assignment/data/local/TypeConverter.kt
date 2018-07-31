@@ -1,10 +1,9 @@
-package com.promobi.assignment.database
+package com.promobi.assignment.data.local
 
 import android.arch.persistence.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.promobi.assignment.models.Lists
-import java.util.*
+import com.promobi.assignment.models.Results
 
 
 /**
@@ -14,18 +13,18 @@ class TypeConverter {
 
     var gson = Gson()
     @TypeConverter
-    fun stringToList(text: String?): List<Lists> {
+    fun stringToList(text: String?): Results? {
 
         if (text.isNullOrBlank()) {
-            return Collections.emptyList()
+            return null
         }
 
-        val listType = object : TypeToken<List<Lists>>() {}.type
+        val listType = object : TypeToken<Results>() {}.type
         return gson.fromJson(text, listType)
     }
 
     @TypeConverter
-    fun listToString(lists: List<Lists>): String {
+    fun listToString(lists: Results): String {
         return gson.toJson(lists)
     }
 }

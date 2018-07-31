@@ -1,17 +1,17 @@
-package com.promobi.assignment.database
+package com.promobi.assignment.data.local
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
-import com.promobi.assignment.models.Results
+import com.promobi.assignment.models.NewsResponseSchema
 
 
 /**
  * Created by Vishwajit on 31/07/18.
  */
-@Database(entities = [(Results::class)], version = 1)
+@Database(entities = [(NewsResponseSchema::class)], version = 1)
 @TypeConverters(TypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 

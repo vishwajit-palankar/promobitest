@@ -1,4 +1,4 @@
-package com.promobi.assignment.api
+package com.promobi.assignment.data.remote
 
 import com.promobi.assignment.models.NewsResponseSchema
 import io.reactivex.Observable

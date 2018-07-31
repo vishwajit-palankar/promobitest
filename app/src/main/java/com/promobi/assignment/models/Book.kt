@@ -1,7 +1,10 @@
 package com.promobi.assignment.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Book(
         @SerializedName("age_group") var ageGroup: String,
         @SerializedName("amazon_product_url") var amazonProductUrl: String,
@@ -27,4 +30,4 @@ data class Book(
         @SerializedName("updated_date") var updatedDate: String,
         @SerializedName("weeks_on_list") var weeksOnList: Int,
         @SerializedName("buy_links") var buyLinks: List<BuyLink>
-)
+):Parcelable
