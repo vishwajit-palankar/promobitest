@@ -65,5 +65,5 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
     //GreenRobot
-
+    compile 'org.greenrobot:eventbus:3.1.1'
 }
